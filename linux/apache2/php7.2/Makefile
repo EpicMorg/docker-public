@@ -1,7 +1,5 @@
-all: apache2
-apache2:
-	docker build --compress -t epicmorg/apache2:php7.2 .
-	docker push epicmorg/apache2:php7.2
+all: app
 
-	docker tag epicmorg/apache2:php7.2 epicmorg/websites:php7.2
-	docker push epicmorg/websites:php7.2
+app:
+	docker-compose build --compress
+	docker-compose push

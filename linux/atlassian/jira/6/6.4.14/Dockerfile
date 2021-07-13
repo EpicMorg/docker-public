@@ -5,8 +5,11 @@ ARG DEBIAN_FRONTEND=noninteractive
 ##################################################################
 #                   ARGuments
 ##################################################################
-ARG JIRA_VERSION=6.4.14
-ARG DOWNLOAD_URL=https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-${JIRA_VERSION}.tar.gz
+
+#configured by dockerfile / .ENV
+ARG RELEASE
+ARG DOWNLOAD_URL
+
 
 ##################################################################
 #                   Setup
@@ -33,7 +36,6 @@ RUN mkdir -p                             ${JIRA_INSTALL_DIR} \
     && sed -i -e 's/^JVM_SUPPORT_RECOMMENDED_ARGS=""$/: \${JVM_SUPPORT_RECOMMENDED_ARGS:=""}/g' ${JIRA_INSTALL_DIR}/bin/setenv.sh \
     && sed -i -e 's/^JVM_\(.*\)_MEMORY="\(.*\)"$/: \${JVM_\1_MEMORY:=\2}/g' ${JIRA_INSTALL_DIR}/bin/setenv.sh \
     && sed -i -e 's/port="8080"/port="8080" secure="${catalinaConnectorSecure}" scheme="${catalinaConnectorScheme}" proxyName="${catalinaConnectorProxyName}" proxyPort="${catalinaConnectorProxyPort}"/' ${JIRA_INSTALL_DIR}/conf/server.xml && \
-
     update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 && \
     apt clean -y && \
     apt autoclean -y && \

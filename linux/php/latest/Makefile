@@ -1,4 +1,5 @@
-all: php
-php:
-	docker build --compress -t epicmorg/php:latest .
-	docker push  epicmorg/php:latest
+all: app
+
+app:
+	docker-compose build --compress
+	docker-compose push

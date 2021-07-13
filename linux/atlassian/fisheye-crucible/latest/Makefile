@@ -1,5 +1,5 @@
-all: fisheye-crucible
+all: app
 
-fisheye-crucible:
-	docker build --compress -t epicmorg/fisheye-crucible:latest .
-	docker push epicmorg/fisheye-crucible:latest
+app:
+	docker-compose build --compress
+	docker-compose push
